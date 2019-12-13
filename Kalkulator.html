@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>	<title>Kalkulator kelompok 8 ARC</title>
+	<script src="Kalkulator.js"></script>
+	<link rel="stylesheet" href="Kalkulator.css">	
+</head>
+<body>
+<form name="sci-calc">
+<table align="center">
+<tr>
+<td COLSPAN="7" align="center"><input NAME="display" class="sc" VALUE="0"></td>
+</tr><tr>                              
+<td colspan="2"><input type="button" class="btn back" value="Clear" onclick="this.form.display.value = 0 "></td>
+<td colspan="3"><input class="btn clr" type="button" value="←" onclick="deleteChar(this.form.display)"></td>
+<td colspan="2"><input class="btn hsl" type="button" value="  =  " NAME="Enter" onclick="if (checkNum(this.form.display.value)) { compute(this.form) }"></td>
+</tr><tr>
+<td align="center"><input type="button" class="btn opr" value=" exp " onclick="if (checkNum(this.form.display.value)) { exp(this.form) }"></td>
+<td align="center"><input type="button" class="btn" value="e" onclick="addChar(this.form.display, Math.E)"></td>
+<td align="center"><input type="button" class="btn" value="  7  " onclick="addChar(this.form.display, '7')"></td>
+<td align="center"><input type="button" class="btn" value="  8  " onclick="addChar(this.form.display, '8')"></td>
+<td align="center"><input type="button" class="btn" value="  9  " onclick="addChar(this.form.display, '9')"></td>
+<td align="center"><input type="button" class="btn" value="𝜋" onclick="addChar(this.form.display, Math.PI)"></td>
+<td align="center"><input type="button" class="btn opr" value="   /   " onclick="addChar(this.form.display, '/')"></td>
+</tr><tr>                                                                 
+<td align="center"><input type="button" class="btn opr" value="  ln   " onclick="if (checkNum(this.form.display.value)) { ln(this.form) }"></td>
+<td align="center"><input type="button" class="btn opr" value="cos" onclick="if (checkNum(this.form.display.value)) { cos(this.form) }"></td>
+<td align="center"><input type="button" class="btn" value="  4  " onclick="addChar(this.form.display, '4')"></td>
+<td align="center"><input type="button" class="btn" value="  5  " onclick="addChar(this.form.display, '5')"></td>
+<td align="center"><input type="button" class="btn" value="  6  " onclick="addChar(this.form.display, '6')"></td>
+<td align="center"><input type="button" class="btn opr" value="acos" onclick="if (checkNum(this.form.display.value)) { acos(this.form) }"></td>
+<td align="center"><input type="button" class="btn opr" value="   *   " onclick="addChar(this.form.display, '*')"></td>
+</tr><tr>                                                                  
+<td align="center"><input type="button" class="btn opr" value=" sqrt " onclick="if (checkNum(this.form.display.value)) { sqrt(this.form) }"></td>
+<td align="center"><input type="button" class="btn opr" value=" sin " onclick="if (checkNum(this.form.display.value)) { sin(this.form) }"></td>
+<td align="center"><input type="button" class="btn" value="  1  " onclick="addChar(this.form.display, '1')"></td>
+<td align="center"><input type="button" class="btn" value="  2  " onclick="addChar(this.form.display, '2')"></td>
+<td align="center"><input type="button" class="btn" value="  3  " onclick="addChar(this.form.display, '3')"></td>
+<td align="center"><input type="button" class="btn opr" value="asin" onclick="if (checkNum(this.form.display.value)) { asin(this.form) }"></td>
+<td align="center"><input type="button" class="btn opr" value="   -   " onclick="addChar(this.form.display, '-')"></td>
+</tr><tr>                                                      
+<td align="center"><input type="button" class="btn opr" value="  sq  " onclick="if (checkNum(this.form.display.value)) { square(this.form) }"></td>
+<td align="center"><input type="button" class="btn opr" value=" tan" onclick="if (checkNum(this.form.display.value)) { tan(this.form) }"></td>
+<td align="center"><input type="button" class="btn" value="   .  " onclick="addChar(this.form.display, '.')"></td>
+<td align="center"><input type="button" class="btn" value="  0  " onclick="addChar(this.form.display, '0')"></td>
+<td align="center"><input type="button" class="btn" value=" +/- " onclick="changeSign(this.form.display)"></td>
+<td align="center"><input type="button" class="btn opr" value="atan" onclick="if (checkNum(this.form.display.value)) { atan(this.form) }"></td>
+<td align="center"><input type="button" class="btn opr" value="   +  " onclick="addChar(this.form.display, '+')"></td>
+</tr><tr>                                         
+<script src="Operator.js"></script>
+<td align="center"><input type="button" class="btn opr" value="   (    " onclick="addChar(this.form.display, '(')"></td>
+<td align="center"><input type="button" class="btn opr" value="log" onclick="if (checkNum(this.form.display.value)) { log(this.form) }"></td>
+<td align="center"><input type="button" class="btn opr" value="!" onclick="if (checkNum(this.form.display.value)) { factorial(this.form) }"></td>
+<td align="center"><input type="button" class="btn opr" value="round" onclick="if (checkNum(this.form.display.value)) { rounded(this.form) }"></td>
+<td align="center"><input type="button" class="btn opr" value="mod" onclick="addChar(this.form.display, '%')"></td>
+<td align="center"><input type="button" class="btn opr" value="10^x" onclick="if (checkNum(this.form.display.value)) { pangkat10(this.form) }"></td>
+<td align="center"><input type="button" class="btn opr" value="   )   " onclick="addChar(this.form.display, ')')"></td>
+</table>
+</form>
+<br>
+<form class="basis">
+	<div class="form-row">
+		<div class="col col-sm-8">
+			<input id="lbsInput" type="number" class="form-control form-control-lg mr-2 mb-2" placeholder="Masukkan angka" autocomplete="off">
+		</div>
+		<div class="col col-4">
+			<select id="selectOption" name="selectOption" class="form-control form-control-lg" onchange="formula(this)">
+				<option selected value="default">From...</option>
+				<option value="Base2">Basis 2</option>
+				<option value="Base8">Basis 8</option>
+				<option value="Base10">Basis 10</option>
+				<option value="Base16">Basis 16</option>
+			</select>
+		</div>
+	</div>
+</form>
+<script type="text/javascript" src="Basis.js"></script>
+<div id="output">
+
+	<div class="basis">
+		<h4>Basis 2:</h4>
+		<div id="Base2Output"></div>
+	</div>
+
+	<div class="basis">
+		<h4>Basis 8:</h4>
+		<div id="Base8Output"></div>
+	</div>
+
+	<div class="basis">
+		<h4>Basis 10:</h4>
+		<div id="Base10Output"></div>
+	</div>
+
+	<div class="basis">
+		<h4>Basis 16:</h4>
+		<div id="Base16Output"></div>
+	</div>
+</div>
+<script type="text/javascript" src="Basis.js"></script>
+<script language="javascript" type="text/javascript">
+	function change(type, value) {
+		var post = $('#calc').serialize();
+		$.ajax({
+		url: ('/number-base-converter/calc?type=' + type + '&' + post),
+		context: document.body,
+		success: function (response) {
+		document.getElementById("resPost").innerHTML = response;
+		}
+	});
+}
+    </script>
+<footer>
+<p>&copy; Nabila Farras Ammara Mumtaz, 16519520 &emsp;
+&copy; Rivian Pratama, 17518047 &emsp;
+&copy; Fathoni Khotibul Ilman, 13018104</p>
+</footer>
+</body>
+</html>
